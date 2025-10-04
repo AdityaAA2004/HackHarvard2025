@@ -1,9 +1,11 @@
 """
 Multi-Agent Orchestrator - Coordinates all agents
-(Currently only Route Agent for testing)
 """
 from typing import Dict, List
 from agents.route_agent import RouteAgent
+from agents.carbon_agent import CarbonAgent
+# from agents.policy_agent import PolicyAgent
+# from agents.optimizer_agent import OptimizerAgent
 import traceback
 
 
@@ -16,19 +18,27 @@ class MultiAgentOrchestrator:
         
         try:
             self.route_agent = RouteAgent(api_key)
-            print("✅ Route Agent initialized successfully")
+            print("✅ Route Agent initialized")
+            
+            self.carbon_agent = CarbonAgent(api_key)
+            print("✅ Carbon Agent initialized")
+            
+            # TODO: Initialize remaining agents
+            # self.policy_agent = PolicyAgent(api_key)
+            # self.optimizer_agent = OptimizerAgent(api_key)
+            
         except Exception as e:
-            print(f"❌ Error initializing Route Agent: {e}")
+            print(f"❌ Error initializing agents: {e}")
             raise
     
     async def execute(self, user_input: Dict) -> Dict:
-        """Execute Route Agent only (for testing)"""
+        """Execute multi-agent workflow"""
         
         conversation_log = []
         
         try:
-            # Step 1: Route Agent
-            print(f"\n🚚 Route Agent: Finding routes from {user_input['origin']} to {user_input['destination']}...")
+            # Step 1: Route Agent - Find routes
+            print(f"\n🚚 Route Agent: Finding routes...")
             route_result = await self.route_agent.execute(user_input)
             
             if "error" in route_result:
@@ -42,17 +52,53 @@ class MultiAgentOrchestrator:
             
             conversation_log.append({
                 "agent": "route",
-                "message": route_result.get('raw_response', ''),
+                "message": f"Found {len(route_result.get('data', {}).get('routes_found', []))} viable routes",
                 "data": route_result.get('data', {})
             })
             print(f"✅ Route Agent completed")
             
-            # For now, return Route Agent result as recommendation
-            print(f"\n🎉 Route Agent completed successfully!\n")
+            # Step 2: Carbon Agent - Calculate emissions
+            print(f"\n🌱 Carbon Agent: Calculating emissions...")
+            carbon_input = {
+                "routes": route_result.get('data', {}).get('routes_found', []),
+                "weight_tons": user_input['weight']
+            }
+            carbon_result = await self.carbon_agent.execute(carbon_input)
+            
+            if "error" in carbon_result:
+                print(f"❌ Carbon Agent error: {carbon_result['error']}")
+                return {
+                    "success": False,
+                    "error": f"Carbon Agent failed: {carbon_result['error']}",
+                    "agent_conversation": conversation_log,
+                    "request": user_input
+                }
+            
+            conversation_log.append({
+                "agent": "carbon",
+                "message": "Analyzed emissions for all routes",
+                "data": carbon_result.get('data', {})
+            })
+            print(f"✅ Carbon Agent completed")
+            
+            # Step 3: Policy Agent (TODO)
+            # print(f"\n⚖️  Policy Agent: Checking compliance...")
+            # policy_result = await self.policy_agent.execute({...})
+            
+            # Step 4: Optimizer Agent (TODO)
+            # print(f"\n🎯 Optimizer Agent: Making recommendation...")
+            # optimizer_result = await self.optimizer_agent.execute({...})
+            
+            # For now, return combined results
+            print(f"\n🎉 Multi-agent analysis completed!\n")
             
             return {
                 "success": True,
-                "recommendation": route_result.get('data', {}),
+                "recommendation": {
+                    "routes": route_result.get('data', {}),
+                    "emissions": carbon_result.get('data', {}),
+                    # Add policy and optimizer results when ready
+                },
                 "agent_conversation": conversation_log,
                 "request": user_input
             }
