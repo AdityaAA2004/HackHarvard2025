@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: frontend/
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev"

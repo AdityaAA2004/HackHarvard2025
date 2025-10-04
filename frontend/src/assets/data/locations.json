@@ -1,0 +1,395 @@
+{
+  "locations": {
+    "Shanghai": {
+      "country": "China",
+      "region": "ASIA",
+      "coordinates": {
+        "lat": 31.2304,
+        "lng": 121.4737
+      },
+      "timezone": "Asia/Shanghai",
+      "ports": [
+        {
+          "name": "Shanghai Port",
+          "code": "CNSHA",
+          "type": "deep_sea",
+          "capacity_teu": 47030000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Pudong International",
+          "code": "PVG",
+          "cargo_capacity_tons": 3680000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Shanghai Railway Logistics Center",
+          "code": "SHA-RAIL-01",
+          "connections": ["Beijing", "Chengdu", "Hamburg"]
+        }
+      ]
+    },
+    "Berlin": {
+      "country": "Germany",
+      "region": "EU",
+      "coordinates": {
+        "lat": 52.52,
+        "lng": 13.405
+      },
+      "timezone": "Europe/Berlin",
+      "ports": [],
+      "airports": [
+        {
+          "name": "Berlin Brandenburg",
+          "code": "BER",
+          "cargo_capacity_tons": 50000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Berlin Hauptbahnhof Cargo",
+          "code": "BER-RAIL-01",
+          "connections": ["Hamburg", "Munich", "Warsaw"]
+        }
+      ]
+    },
+    "Los Angeles": {
+      "country": "United States",
+      "region": "US",
+      "coordinates": {
+        "lat": 34.0522,
+        "lng": -118.2437
+      },
+      "timezone": "America/Los_Angeles",
+      "ports": [
+        {
+          "name": "Port of Los Angeles",
+          "code": "USLAX",
+          "type": "deep_sea",
+          "capacity_teu": 10677000
+        },
+        {
+          "name": "Port of Long Beach",
+          "code": "USLGB",
+          "type": "deep_sea",
+          "capacity_teu": 8113000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Los Angeles International",
+          "code": "LAX",
+          "cargo_capacity_tons": 2209000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "BNSF Hobart Intermodal",
+          "code": "LAX-RAIL-01",
+          "connections": ["Chicago", "Dallas", "Seattle"]
+        }
+      ]
+    },
+    "Tokyo": {
+      "country": "Japan",
+      "region": "ASIA",
+      "coordinates": {
+        "lat": 35.6762,
+        "lng": 139.6503
+      },
+      "timezone": "Asia/Tokyo",
+      "ports": [
+        {
+          "name": "Tokyo Port",
+          "code": "JPTYO",
+          "type": "container",
+          "capacity_teu": 4590000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Narita International",
+          "code": "NRT",
+          "cargo_capacity_tons": 2027000
+        },
+        {
+          "name": "Haneda Airport",
+          "code": "HND",
+          "cargo_capacity_tons": 1200000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Tokyo Freight Terminal",
+          "code": "TYO-RAIL-01",
+          "connections": ["Osaka", "Nagoya", "Sapporo"]
+        }
+      ]
+    },
+    "New York": {
+      "country": "United States",
+      "region": "US",
+      "coordinates": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "timezone": "America/New_York",
+      "ports": [
+        {
+          "name": "Port of New York and New Jersey",
+          "code": "USNYC",
+          "type": "deep_sea",
+          "capacity_teu": 7199000
+        }
+      ],
+      "airports": [
+        {
+          "name": "John F. Kennedy International",
+          "code": "JFK",
+          "cargo_capacity_tons": 1300000
+        },
+        {
+          "name": "Newark Liberty International",
+          "code": "EWR",
+          "cargo_capacity_tons": 800000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "ExpressRail Port Elizabeth",
+          "code": "NYC-RAIL-01",
+          "connections": ["Chicago", "Boston", "Atlanta"]
+        }
+      ]
+    },
+    "London": {
+      "country": "United Kingdom",
+      "region": "EU",
+      "coordinates": {
+        "lat": 51.5074,
+        "lng": -0.1278
+      },
+      "timezone": "Europe/London",
+      "ports": [
+        {
+          "name": "Port of London",
+          "code": "GBLON",
+          "type": "container",
+          "capacity_teu": 1800000
+        }
+      ],
+      "airports": [
+        {
+          "name": "London Heathrow",
+          "code": "LHR",
+          "cargo_capacity_tons": 1800000
+        },
+        {
+          "name": "London Gatwick",
+          "code": "LGW",
+          "cargo_capacity_tons": 95000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "London Gateway Rail",
+          "code": "LON-RAIL-01",
+          "connections": ["Manchester", "Birmingham", "Paris"]
+        }
+      ]
+    },
+    "Hamburg": {
+      "country": "Germany",
+      "region": "EU",
+      "coordinates": {
+        "lat": 53.5511,
+        "lng": 9.9937
+      },
+      "timezone": "Europe/Berlin",
+      "ports": [
+        {
+          "name": "Port of Hamburg",
+          "code": "DEHAM",
+          "type": "deep_sea",
+          "capacity_teu": 8700000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Hamburg Airport",
+          "code": "HAM",
+          "cargo_capacity_tons": 150000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Hamburg Freight Village",
+          "code": "HAM-RAIL-01",
+          "connections": ["Berlin", "Munich", "Copenhagen"]
+        }
+      ]
+    },
+    "Rotterdam": {
+      "country": "Netherlands",
+      "region": "EU",
+      "coordinates": {
+        "lat": 51.9225,
+        "lng": 4.47917
+      },
+      "timezone": "Europe/Amsterdam",
+      "ports": [
+        {
+          "name": "Port of Rotterdam",
+          "code": "NLRTM",
+          "type": "deep_sea",
+          "capacity_teu": 14350000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Rotterdam The Hague Airport",
+          "code": "RTM",
+          "cargo_capacity_tons": 80000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Rotterdam Rail Terminal",
+          "code": "RTM-RAIL-01",
+          "connections": ["Amsterdam", "Antwerp", "Duisburg"]
+        }
+      ]
+    },
+    "Mumbai": {
+      "country": "India",
+      "region": "ASIA",
+      "coordinates": {
+        "lat": 19.076,
+        "lng": 72.8777
+      },
+      "timezone": "Asia/Kolkata",
+      "ports": [
+        {
+          "name": "Jawaharlal Nehru Port",
+          "code": "INNSA",
+          "type": "deep_sea",
+          "capacity_teu": 5400000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Chhatrapati Shivaji International",
+          "code": "BOM",
+          "cargo_capacity_tons": 950000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Mumbai Central Freight",
+          "code": "MUM-RAIL-01",
+          "connections": ["Delhi", "Chennai", "Kolkata"]
+        }
+      ]
+    },
+    "Dubai": {
+      "country": "United Arab Emirates",
+      "region": "MIDDLE_EAST",
+      "coordinates": {
+        "lat": 25.2048,
+        "lng": 55.2708
+      },
+      "timezone": "Asia/Dubai",
+      "ports": [
+        {
+          "name": "Port of Jebel Ali",
+          "code": "AEJEA",
+          "type": "deep_sea",
+          "capacity_teu": 14100000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Dubai International",
+          "code": "DXB",
+          "cargo_capacity_tons": 2650000
+        },
+        {
+          "name": "Al Maktoum International",
+          "code": "DWC",
+          "cargo_capacity_tons": 3200000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Dubai Logistics City Rail",
+          "code": "DXB-RAIL-01",
+          "connections": ["Abu Dhabi", "Riyadh"]
+        }
+      ]
+    },
+    "Singapore": {
+      "country": "Singapore",
+      "region": "ASIA",
+      "coordinates": {
+        "lat": 1.3521,
+        "lng": 103.8198
+      },
+      "timezone": "Asia/Singapore",
+      "ports": [
+        {
+          "name": "Port of Singapore",
+          "code": "SGSIN",
+          "type": "deep_sea",
+          "capacity_teu": 37200000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Singapore Changi",
+          "code": "SIN",
+          "cargo_capacity_tons": 2100000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Singapore Rail Terminal",
+          "code": "SIN-RAIL-01",
+          "connections": ["Kuala Lumpur", "Bangkok"]
+        }
+      ]
+    },
+    "Sydney": {
+      "country": "Australia",
+      "region": "OCEANIA",
+      "coordinates": {
+        "lat": -33.8688,
+        "lng": 151.2093
+      },
+      "timezone": "Australia/Sydney",
+      "ports": [
+        {
+          "name": "Port Botany",
+          "code": "AUSYD",
+          "type": "container",
+          "capacity_teu": 2700000
+        }
+      ],
+      "airports": [
+        {
+          "name": "Sydney Kingsford Smith",
+          "code": "SYD",
+          "cargo_capacity_tons": 580000
+        }
+      ],
+      "rail_terminals": [
+        {
+          "name": "Sydney Intermodal Terminal",
+          "code": "SYD-RAIL-01",
+          "connections": ["Melbourne", "Brisbane", "Adelaide"]
+        }
+      ]
+    }
+  }
+}

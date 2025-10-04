@@ -1,0 +1,240 @@
+{
+  "routes": [
+    {
+      "id": "route_001",
+      "origin": "Shanghai",
+      "destination": "Berlin",
+      "options": [
+        {
+          "id": "sh_ber_sea_rail",
+          "name": "Sea Freight → Rail",
+          "modes": ["sea", "rail"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "Shanghai",
+              "to": "Hamburg",
+              "distance_km": 19500,
+              "days": 16
+            },
+            {
+              "mode": "rail",
+              "from": "Hamburg",
+              "to": "Berlin",
+              "distance_km": 290,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 2000,
+          "transit_days": 17,
+          "reliability_score": 0.92
+        },
+        {
+          "id": "sh_ber_air",
+          "name": "Air Freight Direct",
+          "modes": ["air"],
+          "segments": [
+            {
+              "mode": "air",
+              "from": "Shanghai",
+              "to": "Berlin",
+              "distance_km": 8150,
+              "days": 2
+            }
+          ],
+          "base_cost_usd": 8000,
+          "transit_days": 2,
+          "reliability_score": 0.98
+        },
+        {
+          "id": "sh_ber_sea_truck",
+          "name": "Sea Freight → Truck",
+          "modes": ["sea", "truck"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "Shanghai",
+              "to": "Rotterdam",
+              "distance_km": 19800,
+              "days": 17
+            },
+            {
+              "mode": "truck",
+              "from": "Rotterdam",
+              "to": "Berlin",
+              "distance_km": 660,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 2500,
+          "transit_days": 18,
+          "reliability_score": 0.90
+        }
+      ]
+    },
+    {
+      "id": "route_002",
+      "origin": "Los Angeles",
+      "destination": "Tokyo",
+      "options": [
+        {
+          "id": "la_tok_sea",
+          "name": "Sea Freight Direct",
+          "modes": ["sea"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "Los Angeles",
+              "to": "Tokyo",
+              "distance_km": 8850,
+              "days": 12
+            }
+          ],
+          "base_cost_usd": 1800,
+          "transit_days": 12,
+          "reliability_score": 0.94
+        },
+        {
+          "id": "la_tok_air",
+          "name": "Air Freight Direct",
+          "modes": ["air"],
+          "segments": [
+            {
+              "mode": "air",
+              "from": "Los Angeles",
+              "to": "Tokyo",
+              "distance_km": 8800,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 7500,
+          "transit_days": 1,
+          "reliability_score": 0.99
+        }
+      ]
+    },
+    {
+      "id": "route_003",
+      "origin": "New York",
+      "destination": "London",
+      "options": [
+        {
+          "id": "ny_lon_sea",
+          "name": "Sea Freight Direct",
+          "modes": ["sea"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "New York",
+              "to": "London",
+              "distance_km": 5580,
+              "days": 8
+            }
+          ],
+          "base_cost_usd": 1500,
+          "transit_days": 8,
+          "reliability_score": 0.93
+        },
+        {
+          "id": "ny_lon_air",
+          "name": "Air Freight Direct",
+          "modes": ["air"],
+          "segments": [
+            {
+              "mode": "air",
+              "from": "New York",
+              "to": "London",
+              "distance_km": 5570,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 6000,
+          "transit_days": 1,
+          "reliability_score": 0.98
+        }
+      ]
+    },
+    {
+      "id": "route_004",
+      "origin": "Mumbai",
+      "destination": "Dubai",
+      "options": [
+        {
+          "id": "mum_dub_sea",
+          "name": "Sea Freight Direct",
+          "modes": ["sea"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "Mumbai",
+              "to": "Dubai",
+              "distance_km": 1900,
+              "days": 5
+            }
+          ],
+          "base_cost_usd": 800,
+          "transit_days": 5,
+          "reliability_score": 0.91
+        },
+        {
+          "id": "mum_dub_air",
+          "name": "Air Freight Direct",
+          "modes": ["air"],
+          "segments": [
+            {
+              "mode": "air",
+              "from": "Mumbai",
+              "to": "Dubai",
+              "distance_km": 1900,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 3500,
+          "transit_days": 1,
+          "reliability_score": 0.97
+        }
+      ]
+    },
+    {
+      "id": "route_005",
+      "origin": "Singapore",
+      "destination": "Sydney",
+      "options": [
+        {
+          "id": "sin_syd_sea",
+          "name": "Sea Freight Direct",
+          "modes": ["sea"],
+          "segments": [
+            {
+              "mode": "sea",
+              "from": "Singapore",
+              "to": "Sydney",
+              "distance_km": 6300,
+              "days": 10
+            }
+          ],
+          "base_cost_usd": 1600,
+          "transit_days": 10,
+          "reliability_score": 0.93
+        },
+        {
+          "id": "sin_syd_air",
+          "name": "Air Freight Direct",
+          "modes": ["air"],
+          "segments": [
+            {
+              "mode": "air",
+              "from": "Singapore",
+              "to": "Sydney",
+              "distance_km": 6300,
+              "days": 1
+            }
+          ],
+          "base_cost_usd": 5800,
+          "transit_days": 1,
+          "reliability_score": 0.98
+        }
+      ]
+    }
+  ]
+}
