@@ -1,0 +1,167 @@
+{
+    "marketplace_status": {
+      "status": "OPEN",
+      "last_updated": "2025-01-15T10:30:00Z",
+      "trading_volume_today_tons": 12450,
+      "market_trend": "bullish",
+      "price_change_24h_pct": 2.3
+    },
+    "available_credits": [
+      {
+        "id": "VCS-2024-001",
+        "name": "Amazon Rainforest Conservation",
+        "type": "Verified Carbon Standard",
+        "category": "forestry",
+        "price_per_ton_usd": 10,
+        "quality_tier": "basic",
+        "certification": "VCS",
+        "certifying_body": "Verra",
+        "vintage_year": 2024,
+        "location": "Brazil",
+        "project_description": "REDD+ project protecting 50,000 hectares of Amazon rainforest",
+        "co_benefits": ["biodiversity", "indigenous_communities"],
+        "verification_status": "verified",
+        "min_quantity_tons": 0.1,
+        "max_quantity_tons": 1000,
+        "delivery_time": "instant",
+        "inventory_available_tons": 5000,
+        "rating": 4.2,
+        "reviews_count": 1847
+      },
+      {
+        "id": "GS-2024-042",
+        "name": "Wind Farm Development - Tamil Nadu",
+        "type": "Gold Standard",
+        "category": "renewable_energy",
+        "price_per_ton_usd": 25,
+        "quality_tier": "premium",
+        "certification": "Gold Standard",
+        "certifying_body": "Gold Standard Foundation",
+        "vintage_year": 2024,
+        "location": "Tamil Nadu, India",
+        "project_description": "150 MW wind farm replacing coal power generation",
+        "co_benefits": ["clean_energy", "job_creation", "rural_development"],
+        "verification_status": "verified",
+        "min_quantity_tons": 0.1,
+        "max_quantity_tons": 500,
+        "delivery_time": "instant",
+        "inventory_available_tons": 2500,
+        "rating": 4.7,
+        "reviews_count": 3241
+      },
+      {
+        "id": "CDR-2024-008",
+        "name": "Direct Air Capture - Climeworks Iceland",
+        "type": "Carbon Dioxide Removal",
+        "category": "direct_air_capture",
+        "price_per_ton_usd": 60,
+        "quality_tier": "verified_removal",
+        "certification": "CDR Certified",
+        "certifying_body": "Puro.earth",
+        "vintage_year": 2024,
+        "location": "Hellisheiði, Iceland",
+        "project_description": "Direct air capture with permanent geological storage",
+        "co_benefits": ["permanent_storage", "negative_emissions"],
+        "verification_status": "verified",
+        "min_quantity_tons": 0.1,
+        "max_quantity_tons": 100,
+        "delivery_time": "instant",
+        "inventory_available_tons": 800,
+        "rating": 4.9,
+        "reviews_count": 892
+      },
+      {
+        "id": "GS-2024-089",
+        "name": "Solar Power Plant - Morocco",
+        "type": "Gold Standard",
+        "category": "renewable_energy",
+        "price_per_ton_usd": 22,
+        "quality_tier": "premium",
+        "certification": "Gold Standard",
+        "certifying_body": "Gold Standard Foundation",
+        "vintage_year": 2024,
+        "location": "Ouarzazate, Morocco",
+        "project_description": "200 MW concentrated solar power plant",
+        "co_benefits": ["clean_energy", "water_conservation", "technology_transfer"],
+        "verification_status": "verified",
+        "min_quantity_tons": 0.1,
+        "max_quantity_tons": 750,
+        "delivery_time": "instant",
+        "inventory_available_tons": 3200,
+        "rating": 4.6,
+        "reviews_count": 2156
+      },
+      {
+        "id": "VCS-2024-156",
+        "name": "Mangrove Restoration - Vietnam",
+        "type": "Verified Carbon Standard",
+        "category": "blue_carbon",
+        "price_per_ton_usd": 18,
+        "quality_tier": "premium",
+        "certification": "VCS + CCB",
+        "certifying_body": "Verra",
+        "vintage_year": 2024,
+        "location": "Mekong Delta, Vietnam",
+        "project_description": "Coastal mangrove restoration protecting 15,000 hectares",
+        "co_benefits": ["coastal_protection", "fisheries", "biodiversity"],
+        "verification_status": "verified",
+        "min_quantity_tons": 0.1,
+        "max_quantity_tons": 800,
+        "delivery_time": "instant",
+        "inventory_available_tons": 1800,
+        "rating": 4.5,
+        "reviews_count": 1423
+      }
+    ],
+    "pricing_tiers": {
+      "basic": {
+        "range_usd": "8-15",
+        "description": "Standard verification, forestry projects",
+        "typical_certifications": ["VCS", "CAR"]
+      },
+      "premium": {
+        "range_usd": "18-30",
+        "description": "Gold Standard or additional co-benefits",
+        "typical_certifications": ["Gold Standard", "VCS+CCB"]
+      },
+      "verified_removal": {
+        "range_usd": "50-100",
+        "description": "Permanent carbon removal (DAC, biochar)",
+        "typical_certifications": ["CDR Certified", "Puro.earth"]
+      }
+    },
+    "bulk_discounts": [
+      {
+        "min_quantity_tons": 1,
+        "max_quantity_tons": 5,
+        "discount_pct": 0
+      },
+      {
+        "min_quantity_tons": 5,
+        "max_quantity_tons": 10,
+        "discount_pct": 5
+      },
+      {
+        "min_quantity_tons": 10,
+        "max_quantity_tons": 50,
+        "discount_pct": 10
+      },
+      {
+        "min_quantity_tons": 50,
+        "max_quantity_tons": 999999,
+        "discount_pct": 15
+      }
+    ],
+    "market_events": [
+      {
+        "date": "2025-03-31",
+        "event": "EU ETS Compliance Deadline",
+        "impact": "High demand expected, prices may increase 10-15%"
+      },
+      {
+        "date": "2025-06-15",
+        "event": "New CDR Projects Launch",
+        "impact": "Increased supply of premium credits"
+      }
+    ]
+  }

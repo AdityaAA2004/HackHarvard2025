@@ -4,7 +4,7 @@ Multi-Agent Orchestrator - Coordinates all agents
 from typing import Dict, List
 from agents.route_agent import RouteAgent
 from agents.carbon_agent import CarbonAgent
-# from agents.policy_agent import PolicyAgent
+from agents.policy_agent import PolicyAgent
 # from agents.optimizer_agent import OptimizerAgent
 import traceback
 
@@ -23,8 +23,10 @@ class MultiAgentOrchestrator:
             self.carbon_agent = CarbonAgent(api_key)
             print("✅ Carbon Agent initialized")
             
+            self.policy_agent = PolicyAgent(api_key)
+            print("✅ Policy Agent initialized")
+            
             # TODO: Initialize remaining agents
-            # self.policy_agent = PolicyAgent(api_key)
             # self.optimizer_agent = OptimizerAgent(api_key)
             
         except Exception as e:
@@ -81,9 +83,26 @@ class MultiAgentOrchestrator:
             })
             print(f"✅ Carbon Agent completed")
             
-            # Step 3: Policy Agent (TODO)
-            # print(f"\n⚖️  Policy Agent: Checking compliance...")
-            # policy_result = await self.policy_agent.execute({...})
+            # Step 3: Policy Agent - Check compliance & carbon marketplace
+            print(f"\n⚖️  Policy Agent: Checking compliance & carbon marketplace...")
+            policy_input = {
+                "routes": route_result.get('data', {}).get('routes_found', []),
+                "emissions_data": carbon_result.get('data', {}),
+                "user_priority": user_input.get('priority', 'balanced')
+            }
+            policy_result = await self.policy_agent.execute(policy_input)
+            
+            if "error" in policy_result:
+                print(f"❌ Policy Agent error: {policy_result['error']}")
+                # Continue even if policy fails
+                policy_result = {"data": {"routes_analyzed": []}}
+            else:
+                conversation_log.append({
+                    "agent": "policy",
+                    "message": "Compliance check completed with carbon marketplace recommendations",
+                    "data": policy_result.get('data', {})
+                })
+                print(f"✅ Policy Agent completed")
             
             # Step 4: Optimizer Agent (TODO)
             # print(f"\n🎯 Optimizer Agent: Making recommendation...")
@@ -97,7 +116,8 @@ class MultiAgentOrchestrator:
                 "recommendation": {
                     "routes": route_result.get('data', {}),
                     "emissions": carbon_result.get('data', {}),
-                    # Add policy and optimizer results when ready
+                    "compliance": policy_result.get('data', {}),
+                    # Add optimizer results when ready
                 },
                 "agent_conversation": conversation_log,
                 "request": user_input
