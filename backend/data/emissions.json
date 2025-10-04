@@ -1,0 +1,62 @@
+{
+  "emission_factors": {
+    "sea": {
+      "gCO2_per_ton_km": 10,
+      "description": "Container ship",
+      "category": "low",
+      "source": "IMO Fourth GHG Study 2020"
+    },
+    "rail": {
+      "gCO2_per_ton_km": 22,
+      "description": "Electric rail freight",
+      "category": "low",
+      "source": "EEA Transport Emissions 2023"
+    },
+    "truck": {
+      "gCO2_per_ton_km": 62,
+      "description": "Heavy goods vehicle (diesel)",
+      "category": "medium",
+      "source": "EPA SmartWay 2024"
+    },
+    "air": {
+      "gCO2_per_ton_km": 500,
+      "description": "Air cargo (belly and freighter)",
+      "category": "high",
+      "source": "ICAO Carbon Calculator 2024"
+    }
+  },
+  "carbon_offset_pricing": {
+    "standard": {
+      "usd_per_ton_co2": 25,
+      "certification": "VCS (Verified Carbon Standard)",
+      "description": "Basic forestry and renewable energy projects"
+    },
+    "premium": {
+      "usd_per_ton_co2": 40,
+      "certification": "Gold Standard",
+      "description": "High-quality projects with co-benefits"
+    },
+    "verified_gold": {
+      "usd_per_ton_co2": 60,
+      "certification": "CDR (Carbon Dioxide Removal)",
+      "description": "Direct air capture and permanent storage"
+    }
+  },
+  "emission_thresholds": {
+    "low": {
+      "max_kg_co2": 500,
+      "label": "Low Emission",
+      "color": "green"
+    },
+    "medium": {
+      "max_kg_co2": 1500,
+      "label": "Medium Emission",
+      "color": "yellow"
+    },
+    "high": {
+      "max_kg_co2": null,
+      "label": "High Emission",
+      "color": "red"
+    }
+  }
+}

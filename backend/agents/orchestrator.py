@@ -1,87 +1,70 @@
 """
 Multi-Agent Orchestrator - Coordinates all agents
+(Currently only Route Agent for testing)
 """
 from typing import Dict, List
 from agents.route_agent import RouteAgent
-from agents.carbon_agent import CarbonAgent
-from agents.policy_agent import PolicyAgent
-from agents.optimizer_agent import OptimizerAgent
+import traceback
 
 
 class MultiAgentOrchestrator:
     def __init__(self, api_key: str):
-        self.route_agent = RouteAgent(api_key)
-        self.carbon_agent = CarbonAgent(api_key)
-        self.policy_agent = PolicyAgent(api_key)
-        self.optimizer_agent = OptimizerAgent(api_key)
+        self.api_key = api_key
+        
+        if not api_key:
+            print("⚠️  WARNING: No API key provided to orchestrator!")
+        
+        try:
+            self.route_agent = RouteAgent(api_key)
+            print("✅ Route Agent initialized successfully")
+        except Exception as e:
+            print(f"❌ Error initializing Route Agent: {e}")
+            raise
     
     async def execute(self, user_input: Dict) -> Dict:
-        """Execute all agents in sequence and return results"""
+        """Execute Route Agent only (for testing)"""
         
         conversation_log = []
         
         try:
             # Step 1: Route Agent
-            print("🚚 Route Agent: Finding routes...")
+            print(f"\n🚚 Route Agent: Finding routes from {user_input['origin']} to {user_input['destination']}...")
             route_result = await self.route_agent.execute(user_input)
+            
+            if "error" in route_result:
+                print(f"❌ Route Agent error: {route_result['error']}")
+                return {
+                    "success": False,
+                    "error": f"Route Agent failed: {route_result['error']}",
+                    "agent_conversation": conversation_log,
+                    "request": user_input
+                }
+            
             conversation_log.append({
                 "agent": "route",
                 "message": route_result.get('raw_response', ''),
                 "data": route_result.get('data', {})
             })
+            print(f"✅ Route Agent completed")
             
-            # Step 2: Carbon Agent
-            print("🌱 Carbon Agent: Calculating emissions...")
-            carbon_result = await self.carbon_agent.execute(
-                route_result,
-                user_input['weight']
-            )
-            conversation_log.append({
-                "agent": "carbon",
-                "message": carbon_result.get('raw_response', ''),
-                "data": carbon_result.get('data', {})
-            })
+            # For now, return Route Agent result as recommendation
+            print(f"\n🎉 Route Agent completed successfully!\n")
             
-            # Step 3: Policy Agent
-            print("📋 Policy Agent: Checking compliance...")
-            policy_result = await self.policy_agent.execute(
-                route_result,
-                carbon_result,
-                user_input['origin'],
-                user_input['destination']
-            )
-            conversation_log.append({
-                "agent": "policy",
-                "message": policy_result.get('raw_response', ''),
-                "data": policy_result.get('data', {})
-            })
-            
-            # Step 4: Optimizer Agent
-            print("🎯 Optimizer Agent: Making recommendation...")
-            optimizer_result = await self.optimizer_agent.execute(
-                route_result,
-                carbon_result,
-                policy_result,
-                user_input['priority']
-            )
-            conversation_log.append({
-                "agent": "optimizer",
-                "message": optimizer_result.get('raw_response', ''),
-                "data": optimizer_result.get('data', {})
-            })
-            
-            # Compile final response
             return {
                 "success": True,
-                "recommendation": optimizer_result.get('data', {}),
+                "recommendation": route_result.get('data', {}),
                 "agent_conversation": conversation_log,
                 "request": user_input
             }
             
         except Exception as e:
+            error_msg = f"Orchestrator error: {str(e)}"
+            print(f"\n❌ {error_msg}")
+            print(traceback.format_exc())
+            
             return {
                 "success": False,
-                "error": str(e),
+                "error": error_msg,
                 "agent_conversation": conversation_log,
                 "request": user_input
             }

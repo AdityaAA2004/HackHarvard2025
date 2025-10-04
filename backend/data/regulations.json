@@ -1,0 +1,208 @@
+{
+  "regions": {
+    "EU": {
+      "name": "European Union",
+      "countries": [
+        "Germany",
+        "France",
+        "Netherlands",
+        "Belgium",
+        "Spain",
+        "Italy",
+        "Poland",
+        "Sweden",
+        "Austria"
+      ],
+      "policies": [
+        {
+          "id": "eu_ets",
+          "name": "EU Emissions Trading System",
+          "type": "cap_and_trade",
+          "threshold_tons_co2": 0.5,
+          "cost_per_ton_eur": 80,
+          "mandatory_reporting": true,
+          "applies_to_modes": ["sea", "air"],
+          "effective_date": "2024-01-01",
+          "description": "EU carbon pricing mechanism for maritime and aviation"
+        },
+        {
+          "id": "eu_green_corridor",
+          "name": "EU Green Freight Corridor Initiative",
+          "type": "subsidy",
+          "modes_eligible": ["rail", "sea"],
+          "subsidy_percentage": 5,
+          "max_subsidy_eur": 150,
+          "effective_date": "2024-06-01",
+          "description": "Incentive for low-carbon transport corridors"
+        },
+        {
+          "id": "eu_fit_for_55",
+          "name": "Fit for 55 - FuelEU Maritime",
+          "type": "emission_limit",
+          "applies_to_modes": ["sea"],
+          "ghg_intensity_limit_reduction_pct": 2,
+          "penalty_per_ton_eur": 100,
+          "effective_date": "2025-01-01",
+          "description": "Annual GHG intensity reduction requirements"
+        }
+      ]
+    },
+    "US": {
+      "name": "United States",
+      "countries": ["United States"],
+      "policies": [
+        {
+          "id": "ca_carb",
+          "name": "California CARB - Advanced Clean Fleets",
+          "type": "emission_limit",
+          "states": ["California"],
+          "max_emissions_gCO2_per_km": 50,
+          "penalty_per_ton_usd": 100,
+          "applies_to_modes": ["truck"],
+          "effective_date": "2024-01-01",
+          "description": "Zero-emission truck transition regulation"
+        },
+        {
+          "id": "us_clean_ports",
+          "name": "EPA Clean Ports Initiative",
+          "type": "incentive",
+          "modes_eligible": ["rail", "electric_truck"],
+          "tax_credit_percentage": 10,
+          "max_credit_usd": 500,
+          "effective_date": "2024-04-01",
+          "description": "Federal tax credits for clean port operations"
+        },
+        {
+          "id": "us_ira_clean_fuel",
+          "name": "IRA Clean Fuel Production Credit",
+          "type": "tax_credit",
+          "modes_eligible": ["sea", "truck", "rail"],
+          "credit_per_ton_co2_saved_usd": 35,
+          "effective_date": "2023-01-01",
+          "description": "Tax credit for low-carbon fuel usage"
+        }
+      ]
+    },
+    "ASIA": {
+      "name": "Asia Pacific",
+      "countries": [
+        "Japan",
+        "China",
+        "South Korea",
+        "Singapore",
+        "India"
+      ],
+      "policies": [
+        {
+          "id": "jp_carbon_neutral",
+          "name": "Japan Carbon Neutral 2050",
+          "type": "voluntary_reporting",
+          "incentive_per_ton_jpy": 3000,
+          "applies_to_modes": ["all"],
+          "effective_date": "2023-04-01",
+          "description": "Voluntary carbon reduction incentive program"
+        },
+        {
+          "id": "cn_green_belt",
+          "name": "China Belt and Road Green Initiative",
+          "type": "rail_subsidy",
+          "modes_eligible": ["rail"],
+          "subsidy_percentage": 8,
+          "max_subsidy_cny": 5000,
+          "effective_date": "2024-01-01",
+          "description": "Rail freight subsidy for BRI corridors"
+        },
+        {
+          "id": "sg_maritime_green",
+          "name": "Singapore Maritime Green Initiative",
+          "type": "subsidy",
+          "modes_eligible": ["sea"],
+          "applies_to_fuel_types": ["LNG", "methanol", "ammonia"],
+          "subsidy_percentage": 12,
+          "max_subsidy_sgd": 8000,
+          "effective_date": "2024-07-01",
+          "description": "Support for alternative maritime fuels"
+        },
+        {
+          "id": "kr_ets",
+          "name": "Korea Emissions Trading Scheme",
+          "type": "cap_and_trade",
+          "threshold_tons_co2": 1.0,
+          "cost_per_ton_krw": 25000,
+          "mandatory_reporting": true,
+          "applies_to_modes": ["sea", "truck"],
+          "effective_date": "2023-01-01",
+          "description": "South Korea's carbon trading system"
+        }
+      ]
+    },
+    "MIDDLE_EAST": {
+      "name": "Middle East",
+      "countries": [
+        "United Arab Emirates",
+        "Saudi Arabia",
+        "Qatar"
+      ],
+      "policies": [
+        {
+          "id": "uae_net_zero",
+          "name": "UAE Net Zero 2050 Logistics",
+          "type": "incentive",
+          "modes_eligible": ["sea", "rail"],
+          "subsidy_percentage": 7,
+          "max_subsidy_aed": 10000,
+          "effective_date": "2024-01-01",
+          "description": "Support for sustainable logistics operations"
+        }
+      ]
+    },
+    "OCEANIA": {
+      "name": "Oceania",
+      "countries": ["Australia", "New Zealand"],
+      "policies": [
+        {
+          "id": "au_safeguard",
+          "name": "Australian Safeguard Mechanism",
+          "type": "emission_limit",
+          "threshold_tons_co2": 2.0,
+          "penalty_per_ton_aud": 75,
+          "applies_to_modes": ["sea", "truck"],
+          "effective_date": "2023-07-01",
+          "description": "Emission baseline and credit system"
+        },
+        {
+          "id": "nz_ets",
+          "name": "New Zealand ETS",
+          "type": "cap_and_trade",
+          "threshold_tons_co2": 0.5,
+          "cost_per_ton_nzd": 65,
+          "mandatory_reporting": true,
+          "applies_to_modes": ["all"],
+          "effective_date": "2022-01-01",
+          "description": "NZ emissions trading scheme for transport"
+        }
+      ]
+    }
+  },
+  "compliance_requirements": {
+    "reporting_standards": [
+      {
+        "id": "ghg_protocol",
+        "name": "GHG Protocol Scope 3",
+        "mandatory_for": ["EU", "US"],
+        "description": "Standardized emissions calculation methodology"
+      },
+      {
+        "id": "iso_14064",
+        "name": "ISO 14064-1:2018",
+        "mandatory_for": ["ASIA"],
+        "description": "International standard for GHG accounting"
+      }
+    ],
+    "verification_requirements": {
+      "annual_audit_required": ["EU", "US"],
+      "third_party_verification": true,
+      "documentation_retention_years": 7
+    }
+  }
+}

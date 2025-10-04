@@ -4,13 +4,13 @@ API Routes - FastAPI endpoints
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional
-from orchestrator import MultiAgentOrchestrator
+from agents.orchestrator import MultiAgentOrchestrator
 import os
 
 router = APIRouter()
 
 # Initialize orchestrator with API key from environment
-CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY", "")
+CLAUDE_API_KEY = os.getenv("GEMINI_API_KEY", "")
 orchestrator = MultiAgentOrchestrator(CLAUDE_API_KEY)
 
 
