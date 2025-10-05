@@ -54,6 +54,7 @@ export default function CarbonRoutingOrchestrator() {
       return;
     }
 
+    console.log('Form submitted:', formData);
     setError(null);
     setStep('processing');
     setAgentMessages([]);
@@ -67,22 +68,37 @@ export default function CarbonRoutingOrchestrator() {
         priority: formData.priority as 'cost' | 'speed' | 'carbon' | 'balanced'
       };
 
+      console.log('Calling API with request:', request);
       const response = await apiService.optimizeRoute(request);
+      console.log('API response received:', response);
+      
       setApiResponse(response);
 
-      // Simulate agent conversation display
-      if (response.agent_conversation) {
+      // Display agent conversation if available
+      if (response.agent_conversation && response.agent_conversation.length > 0) {
+        console.log('Displaying agent conversation:', response.agent_conversation);
         for (const msg of response.agent_conversation) {
           await new Promise(resolve => setTimeout(resolve, 800));
           setCurrentAgent(msg.agent);
           setAgentMessages(prev => [...prev, msg]);
         }
+      } else {
+        // If no agent conversation, create a summary message
+        console.log('No agent conversation, creating summary');
+        const summaryMessage: AgentMessage = {
+          agent: 'optimizer',
+          message: 'Route optimization completed successfully!'
+        };
+        setAgentMessages([summaryMessage]);
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
 
+      console.log('Moving to results step');
       await new Promise(resolve => setTimeout(resolve, 1000));
       setStep('results');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to optimize route');
+      console.error('Error in handleSubmit:', err);
+      setError(err instanceof Error ? err.message : 'Failed to optimize route. Please check console for details.');
       setStep('input');
     } finally {
       setIsLoading(false);
@@ -102,11 +118,60 @@ export default function CarbonRoutingOrchestrator() {
   };
 
   const getRecommendedRoute = (): RecommendedRoute | null => {
-    return apiResponse?.recommendation?.recommended_route || null;
+    // If optimizer agent has processed, use recommended_route
+    if (apiResponse?.recommendation?.recommended_route) {
+      return apiResponse.recommendation.recommended_route;
+    }
+    
+    // Otherwise, use the first route from routes_found and merge with emissions/compliance
+    const routes = apiResponse?.recommendation?.routes?.routes_found;
+    const emissions = apiResponse?.recommendation?.emissions?.routes_analyzed;
+    const compliance = apiResponse?.recommendation?.compliance?.routes_analyzed;
+    
+    if (!routes || routes.length === 0) return null;
+    
+    // Take the first route (or you could implement your own selection logic)
+    const route = routes[0];
+    const routeEmissions = emissions?.find(e => e.route_id === route.id);
+    const routeCompliance = compliance?.find(c => c.route_id === route.id);
+    
+    return {
+      ...route,
+      total_cost_usd: route.total_cost_usd || 0,
+      total_emissions_kg: routeEmissions?.total_emissions_kg || 0,
+      compliance_status: routeCompliance?.compliance_status || 'unknown',
+      regulatory_cost_usd: routeCompliance?.total_compliance_cost || 0,
+      carbon_credit_solution: routeCompliance?.carbon_credit_solution
+    } as RecommendedRoute;
   };
 
   const getAlternatives = (): RecommendedRoute[] => {
-    return apiResponse?.recommendation?.alternatives || [];
+    // If optimizer agent has processed, use alternatives
+    if (apiResponse?.recommendation?.alternatives) {
+      return apiResponse.recommendation.alternatives;
+    }
+    
+    // Otherwise, get remaining routes and merge data
+    const routes = apiResponse?.recommendation?.routes?.routes_found;
+    const emissions = apiResponse?.recommendation?.emissions?.routes_analyzed;
+    const compliance = apiResponse?.recommendation?.compliance?.routes_analyzed;
+    
+    if (!routes || routes.length <= 1) return [];
+    
+    // Skip first route (it's the recommended one) and return rest as alternatives
+    return routes.slice(1).map(route => {
+      const routeEmissions = emissions?.find(e => e.route_id === route.id);
+      const routeCompliance = compliance?.find(c => c.route_id === route.id);
+      
+      return {
+        ...route,
+        total_cost_usd: route.total_cost_usd || 0,
+        total_emissions_kg: routeEmissions?.total_emissions_kg || 0,
+        compliance_status: routeCompliance?.compliance_status || 'unknown',
+        regulatory_cost_usd: routeCompliance?.total_compliance_cost || 0,
+        carbon_credit_solution: routeCompliance?.carbon_credit_solution
+      } as RecommendedRoute;
+    });
   };
 
   const formatCurrency = (amount: number) => {
@@ -205,7 +270,7 @@ export default function CarbonRoutingOrchestrator() {
                 <button
                   onClick={handleSubmit}
                   disabled={isLoading}
-                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white font-semibold py-4 rounded-lg transition-colors"
+                  className="w-full cursor-pointer bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white font-semibold py-4 rounded-lg transition-colors"
                 >
                   {isLoading ? 'Processing...' : 'Start Agent Orchestration'}
                 </button>
@@ -402,6 +467,7 @@ export default function CarbonRoutingOrchestrator() {
               </div>
             )}
 
+            {/* Only show trade-off analysis if it exists */}
             {apiResponse?.recommendation?.trade_off_analysis && (
               <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
                 <h3 className="text-xl font-semibold mb-4">Trade-off Analysis</h3>
@@ -450,6 +516,33 @@ export default function CarbonRoutingOrchestrator() {
               </div>
             )}
 
+            {/* Show raw data for debugging when trade-off analysis doesn't exist */}
+            {!apiResponse?.recommendation?.trade_off_analysis && apiResponse?.recommendation && (
+              <div className="bg-slate-800 border border-slate-700 rounded-xl p-6">
+                <h3 className="text-xl font-semibold mb-4">Analysis Summary</h3>
+                <div className="space-y-4 text-sm">
+                  {apiResponse.recommendation.routes?.analysis && (
+                    <div>
+                      <div className="font-semibold text-blue-400 mb-1">Routes Analysis:</div>
+                      <p className="text-slate-300">{apiResponse.recommendation.routes.analysis}</p>
+                    </div>
+                  )}
+                  {apiResponse.recommendation.emissions?.analysis && (
+                    <div>
+                      <div className="font-semibold text-green-400 mb-1">Emissions Analysis:</div>
+                      <p className="text-slate-300">{apiResponse.recommendation.emissions.analysis}</p>
+                    </div>
+                  )}
+                  {apiResponse.recommendation.compliance?.analysis && (
+                    <div>
+                      <div className="font-semibold text-purple-400 mb-1">Compliance Analysis:</div>
+                      <p className="text-slate-300">{apiResponse.recommendation.compliance.analysis}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
             <button
               onClick={() => {
                 setStep('input');
@@ -457,7 +550,7 @@ export default function CarbonRoutingOrchestrator() {
                 setAgentMessages([]);
                 setFormData({ origin: '', destination: '', weight: '', priority: 'balanced' });
               }}
-              className="w-full max-w-md mx-auto block bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-lg transition-colors"
+              className="w-full cursor-pointer max-w-md mx-auto block bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-lg transition-colors"
             >
               Start New Analysis
             </button>
