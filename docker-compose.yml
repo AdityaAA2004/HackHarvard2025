@@ -1,11 +1,48 @@
 version: '3.8'
 
 services:
-  frontend:
-    build: frontend/
+  # Backend API Service (Development with hot reload)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - API_RELOAD=True
+      - ENVIRONMENT=development
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      # Mount entire backend for hot reload
+      - ./backend:/app
+    networks:
+      - carbon-routing-network
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped
+
+  # Frontend Service (Development with Vite dev server)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
-    command: sh -c "npm install && npm run dev"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      # Mount source for hot reload
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - carbon-routing-network
+    command: npm run dev -- --host 0.0.0.0
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+networks:
+  carbon-routing-network:
+    driver: bridge
+    name: carbon-routing-network-dev
